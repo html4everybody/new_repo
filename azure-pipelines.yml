@@ -1,0 +1,35 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  SNOWFLAKE_ACCOUNT: "<your_account>"
+  SNOWFLAKE_USER: "<your_user>"
+  SNOWFLAKE_ROLE: "<your_role>"
+  SNOWFLAKE_WAREHOUSE: "<your_warehouse>"
+  SNOWFLAKE_PASSWORD: $(SNOWFLAKE_PASSWORD)
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+
+- script: |
+    pip install schemachange
+  displayName: 'Install schemachange'
+
+- script: |
+    schemachange -f scripts \
+      -a $(SNOWFLAKE_ACCOUNT) \
+      -u $(SNOWFLAKE_USER) \
+      -r $(SNOWFLAKE_ROLE) \
+      -w $(SNOWFLAKE_WAREHOUSE) \
+      -c config.yml \
+      --create-change-history-table
+  displayName: 'Deploy schema to Snowflake'
+  env:
+    SNOWFLAKE_PASSWORD: $(SNOWFLAKE_PASSWORD)
