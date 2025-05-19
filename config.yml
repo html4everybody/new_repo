@@ -1,4 +1,4 @@
 vars:
   database: DEV_DB
-  schema: STAGING
+  schema: PUBLIC
   table_name: CUSTOMERS
