@@ -1,0 +1,8 @@
+[default]
+account = "EEQFYTC-VGC29901"
+user = "mamidipavan261"
+password = "Kumar@123456789"
+role = "ACCOUNTADMIN"
+warehouse = "COMPUTE_WH"
+database = "DEMO_DB"
+schema = "PUBLIC"
